@@ -6,7 +6,7 @@
 /*   By: sesim <sesim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 12:39:01 by sesim             #+#    #+#             */
-/*   Updated: 2022/05/29 23:28:34 by sesim            ###   ########.fr       */
+/*   Updated: 2022/05/30 16:09:25 by sesim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,9 @@ size_t	ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*ft_strjoin(char const	*s1, char const *s2);
+char	*new_line(char *bac);
+char	*read_line(int fd, char *bac);
+char	*get_line(char *bac);
+char	*get_next_line(int fd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sesim <sesim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 12:39:01 by sesim             #+#    #+#             */
-/*   Updated: 2022/05/29 22:50:52 by sesim            ###   ########.fr       */
+/*   Updated: 2022/05/30 15:51:16 by sesim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 # include <unistd.h>
 
-typedef	struct	s_gnl_list
+typedef struct	s_list
 {
 	int					fd;
 	char				*bac;
 	struct s_gnl_list	*next;
 	struct s_gnl_list	*prev;
-}	t_gnl_list;
+}	t_list;
 
 size_t	ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);
