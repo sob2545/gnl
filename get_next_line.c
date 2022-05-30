@@ -6,7 +6,7 @@
 /*   By: sesim <sesim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 11:53:34 by sesim             #+#    #+#             */
-/*   Updated: 2022/05/30 16:34:25 by sesim            ###   ########.fr       */
+/*   Updated: 2022/05/30 19:35:57 by sesim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ char	*get_line(char *bac)
 	char	*line;
 	int		len;
 
+	if (bac[0] == 0)
+		return (0);
 	if (ft_strchr(bac, '\n'))
 		len = ft_strchr(bac, '\n') - bac + 2;
 	else

@@ -6,7 +6,7 @@
 /*   By: sesim <sesim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 13:43:59 by sesim             #+#    #+#             */
-/*   Updated: 2022/05/30 16:25:13 by sesim            ###   ########.fr       */
+/*   Updated: 2022/05/30 20:57:04 by sesim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
+	if (s == 0)
+		return (0);
 	while (s[i])
 		i++;
 	return (i);
@@ -24,6 +26,8 @@ size_t	ft_strlen(const char *s)
 
 char	*ft_strchr(const char *s, int c)
 {
+	if (s == 0)
+		return (0);
 	while (*s)
 	{
 		if (*s == (char)c)
@@ -44,7 +48,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	src_len = ft_strlen(src);
 	if (dstsize == 0)
 		return (src_len);
-	while (src[i] && i + 1 < dstsize)
+	while (i < src_len && i + 1 < dstsize)
 	{
 		dst[i] = src[i];
 		i++;
@@ -58,8 +62,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	char	*res;
 	int		len;
 
-	if (s1 == 0 || s2 == 0)
-		return (0);
 	len = ft_strlen(s1);
 	res = (char *)malloc(sizeof(char) * (len + ft_strlen(s2) + 1));
 	if (res == 0)
