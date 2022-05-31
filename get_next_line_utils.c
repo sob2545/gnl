@@ -6,13 +6,13 @@
 /*   By: sesim <sesim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 13:43:59 by sesim             #+#    #+#             */
-/*   Updated: 2022/05/30 20:57:04 by sesim            ###   ########.fr       */
+/*   Updated: 2022/05/30 21:09:42 by sesim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen(char *s)
 {
 	size_t	i;
 
@@ -24,7 +24,7 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(char *s, int c)
 {
 	if (s == 0)
 		return (0);
@@ -39,7 +39,7 @@ char	*ft_strchr(const char *s, int c)
 	return (0);
 }
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
 {
 	size_t	i;
 	size_t	src_len;
@@ -57,7 +57,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	return (src_len);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*res;
 	int		len;
@@ -73,6 +73,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		s2++;
 	}
 	res[len] = '\0';
+	free(s1);
+	s1 = 0;
 	return (res);
 }
 
@@ -92,5 +94,7 @@ char	*new_line(char *bac)
 	c_len = ft_strchr(bac, '\n') - bac + 1;
 	new = malloc(sizeof(char) * m_len);
 	ft_strlcpy(new, (bac + c_len), m_len);
+	free(bac);
+	bac = 0;
 	return (new);
 }
