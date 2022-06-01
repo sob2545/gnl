@@ -6,7 +6,7 @@
 /*   By: sesim <sesim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 11:53:34 by sesim             #+#    #+#             */
-/*   Updated: 2022/06/01 13:35:41 by sesim            ###   ########.fr       */
+/*   Updated: 2022/06/01 19:10:32 by sesim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,11 @@ char	*reader(int fd, char *bac)
 	{
 		r_cnt = read(fd, buf, BUFFER_SIZE);
 		if (r_cnt == -1)
-			break ;
+		{
+			free(buf);
+			buf = 0;
+			return (0);
+		}
 		buf[r_cnt] = '\0';
 		bac = ft_strjoin(bac, buf);
 	}
@@ -39,7 +43,7 @@ char	*get_line(char *bac)
 	char	*line;
 	int		len;
 
-	if (bac[0] == 0)
+	if (bac == NULL)
 		return (0);
 	if (ft_strchr(bac, '\n'))
 		len = ft_strchr(bac, '\n') - bac + 2;
@@ -98,6 +102,12 @@ char	*get_next_line(int fd)
 	bac = lst_new(&head, fd);
 	if (bac == 0)
 		return (0);
+	bac->line = reader(fd, bac->line);
+	if (bac->line == 0)
+	{
+		del_node(&bac);
+		return (0);
+	}
 	res = get_line(bac->line);
 	if (res == 0)
 	{
