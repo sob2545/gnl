@@ -6,7 +6,7 @@
 /*   By: sesim <sesim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 11:53:34 by sesim             #+#    #+#             */
-/*   Updated: 2022/06/01 19:10:32 by sesim            ###   ########.fr       */
+/*   Updated: 2022/06/01 22:56:24 by sesim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,7 @@ char	*reader(int fd, char *bac)
 	{
 		r_cnt = read(fd, buf, BUFFER_SIZE);
 		if (r_cnt == -1)
-		{
-			free(buf);
-			buf = 0;
-			return (0);
-		}
+			break ;
 		buf[r_cnt] = '\0';
 		bac = ft_strjoin(bac, buf);
 	}
@@ -43,7 +39,7 @@ char	*get_line(char *bac)
 	char	*line;
 	int		len;
 
-	if (bac == NULL)
+	if (bac[0] == 0)
 		return (0);
 	if (ft_strchr(bac, '\n'))
 		len = ft_strchr(bac, '\n') - bac + 2;
@@ -56,17 +52,7 @@ char	*get_line(char *bac)
 	return (line);
 }
 
-void	del_node(t_list **node)
-{
-	free((*node)->line);
-	(*node)->next->prev = (*node)->prev;
-	if ((*node)->next)
-		(*node)->prev->next = (*node)->next;
-	free (*node);
-	*node = 0;
-}
-
-t_list	*lst_new(t_list *head, int fd)
+t_list	*get_node(t_list *head, int fd)
 {
 	t_list	*node;
 
@@ -79,16 +65,25 @@ t_list	*lst_new(t_list *head, int fd)
 			node = node->next;
 	}
 	node = malloc(sizeof(t_list));
-	if (node == 0)
-		return (0);
-	node->idx = fd;
-	node->line = 0;
 	node->prev = head;
 	node->next = head->next;
-	if (head->next)
+	node->idx = fd;
+	node->line = 0;
+	if (node->next)
 		head->next->prev = node;
 	head->next = node;
 	return (node);
+}
+
+void	del_node(t_list **node)
+{
+	free((*node)->line);
+	(*node)->line = 0;
+	if ((*node)->next)
+		(*node)->next->prev = (*node)->prev;
+	(*node)->prev->next = (*node)->next;
+	free (*node);
+	*node = 0;
 }
 
 char	*get_next_line(int fd)
@@ -99,7 +94,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	bac = lst_new(&head, fd);
+	bac = get_node(&head, fd);
 	if (bac == 0)
 		return (0);
 	bac->line = reader(fd, bac->line);
@@ -115,10 +110,7 @@ char	*get_next_line(int fd)
 		return (0);
 	}
 	bac->line = new_line(bac->line);
-	if ((bac->line) == 0)
-	{
+	if (bac->line == 0)
 		del_node(&bac);
-		return (0);
-	}
 	return (res);
 }
