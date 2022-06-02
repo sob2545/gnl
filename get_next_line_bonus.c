@@ -6,7 +6,7 @@
 /*   By: sesim <sesim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 11:53:34 by sesim             #+#    #+#             */
-/*   Updated: 2022/06/01 22:56:24 by sesim            ###   ########.fr       */
+/*   Updated: 2022/06/02 12:51:15 by sesim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ t_list	*get_node(t_list *head, int fd)
 			node = node->next;
 	}
 	node = malloc(sizeof(t_list));
+	if (node == 0)
+		return (0);
 	node->prev = head;
 	node->next = head->next;
 	node->idx = fd;

@@ -6,7 +6,7 @@
 /*   By: sesim <sesim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 13:43:59 by sesim             #+#    #+#             */
-/*   Updated: 2022/06/01 22:29:14 by sesim            ###   ########.fr       */
+/*   Updated: 2022/06/02 12:51:57 by sesim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ char	*new_line(char *bac)
 	m_len = ft_strlen(bac) - (ft_strchr(bac, '\n') - bac) + 1;
 	c_len = ft_strchr(bac, '\n') - bac + 1;
 	new = malloc(sizeof(char) * m_len);
+	if (new == 0)
+		return (0);
 	ft_strlcpy(new, (bac + c_len), m_len);
 	free(bac);
 	bac = 0;
